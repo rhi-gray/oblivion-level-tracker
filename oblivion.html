@@ -1,0 +1,171 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Oblivion Level Tracker</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script type="text/javascript" src="oblivion-levels.js"></script>
+
+    <!-- Custom styling. -->
+    <style>
+@font-face {
+  font-family: Petrock;
+  src: url("Kingthings_Petrock.ttf");
+}
+@font-face {
+  font-family: PetrockLight;
+  src: url("Kingthings_Petrock_light.ttf");
+}
+
+:root {
+  --text-size-sleep: xx-large;
+  --text-size-large: x-large;
+  --text-size-medium: large;
+  --text-size-small: medium;
+  --footer-height: 48pt;
+}
+
+* {
+  user-select: none;
+  font-family: PetrockLight;
+  line-height: 0.5;
+}
+
+hr {
+  border: 0;
+  height: 1px;
+  background: black;
+}
+
+/* Stick the footer to the bottom of the screen. */
+body {
+  font-family: "sans";
+  min-height: 100vh;
+  padding-bottom: var(--footer-height);
+  background-image: url("parchment.png");
+  background-repeat: repeat;
+}
+
+footer {
+  display: flex;
+  flex-direction: row;
+  justify-content: end;
+  z-index: 20;
+  position: fixed;
+  bottom: 0rem;
+  left: 0rem;
+  width: 100%;
+  height: var(--footer-height);
+}
+
+footer button {
+  border: 1px solid lightgrey;
+  border-radius: 4px;
+  box-shadow: 0px 3px 3px 1px #000000;
+  font-size: var(--text-size-small);
+  transition: 0.2s all;
+  margin: 8pt;
+}
+
+footer button:active{
+  transform: scale(0.9);
+}
+
+#level-up {
+}
+
+/* Marker to let you know when you'll need to sleep. */
+#sleep {
+  z-index: 100;
+  position: fixed;
+  width: 1em;
+  height: 1em;
+  top: 0.2em;
+  right: 0.2em;
+  background-color: #eee;
+  font-size: var(--text-size-sleep);
+  text-align: center;
+  align-content: center;
+  border: 4px dashed #000;
+  border-radius: 2em;
+}
+
+/* Make the stat spinners work good. */
+.skill {
+  font-family: PetrockLight;
+  display: flex;
+  align-content: space-between;
+  padding: 2pt;
+  border-bottom: 1px solid black;
+}
+.skill-spacer {
+  width: 100%;
+}
+
+.skill-major {
+  display: none;
+}
+.skill-major:checked + label {
+  color: #222;
+  border: 2px solid #f2994b;
+}
+.skill-major:not(checked) + label {
+  color: #000;
+  border: 2px solid rgba(0, 0, 0, 0);
+}
+
+.skill label, .skill span {
+  user-select: none;
+  width: 100%;
+  margin-right: 8pt;
+  align-self: center;
+  font-size: var(--text-size-medium);
+  font-weight: bold;
+  padding: 8pt;
+}
+
+.skill .controls {
+  display: flex;
+  border: 1px solid lightgrey;
+  border-radius: 4px;
+  box-shadow: 0px 3px 3px 1px #000000;
+}
+.skill .controls input {
+  border: none;
+  font-size: var(--text-size-medium);
+  font-weight: bold;
+  width: 30pt;
+  text-align: center;
+  background: none;
+}
+
+/* Align the totals. */
+.attr {
+  display: flex;
+  align-content: space-between;
+}
+
+.attr-header {
+  align-self: start;
+  width: 100%;
+}
+.attr-total {
+  align-self: end;
+  padding-right: 2.3em;
+}
+    </style>
+  </head>
+  <body onload="populate_tracker()">
+    <header>
+      <h1>Oblivion Stat Tracker</h1>
+    </header>
+
+    <div id="sleep" hidden>💤</div>
+    <div id="tracker"> </div>
+
+    <footer>
+      <button id="reset" onclick="reset()">Reset points</button>
+      <!-- <button id="level-up">Level up!</button> -->
+    </footer>
+  </body>
+
